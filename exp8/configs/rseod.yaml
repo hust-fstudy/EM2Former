@@ -1,0 +1,92 @@
+# Task
+task: det
+
+# Train/Val/Test data.
+is_split: False
+is_test_epoch: False
+val_step: 2
+min_val_epoch: 250
+
+# Dataset info.
+img_w: 346
+img_h: 260
+
+# To graph.
+is_rand: True
+num_nodes: 5.0e+4
+radius: 0.01
+max_neighbors: 16
+tw: 1.0e+6
+
+# Data augments.
+transform: True
+aug_p_flip: 0.2
+aug_zoom: 1
+aug_trans: 0.1
+
+# Initialization model.
+shuffle: True
+opt_name: adamW  # opts: adam, adamW, sgd
+criterion_name: None  # opts: smooth, cross, bce
+epochs: 250  # 250--->150k
+batch_size: 16  # 16--->150k
+norm_batch_size: 64
+lr: 1.0e-3
+weight_decay: 1.0e-5
+momentum: 0.9
+
+# Lr scheduler.
+is_lr_scheduler: True
+lr_scheduler: lambda  # opts: cosine, linear, step, cycle, lambda
+warmup_epochs: 20
+decay_epochs: 30
+min_lr: 5.0e-6
+warmup_lr_init: 5.0e-7
+decay_rate: 0.1
+
+# Graph conv.
+sel_gnn: Spline  # opts: GCN, GAT, SAGE, GMM, Spline
+gat_heads: 2
+aggr: sum
+kernel_size: 5
+edge_attr_dim: 2
+activation: relu
+proj_mode: sum
+
+# Encoder.
+enable_flash: True
+enable_rope: True
+in_chs: 1
+embed_chs: 16
+enc_depths: [1, 1, 1, 1]
+enc_chs: [64, 128, 128, 128]
+enc_heads: [2, 4, 8, 16]
+enc_patches: [32, 32, 32, 32]
+enc_type: [M, M, T, T]
+d_state: 8
+d_conv: 3
+expand: 1
+drop_path: 0.3
+
+# Dilated conv block.
+xy_only: True
+down_kernel_size: [3, 3, 3]
+down_stride: [1, 2, 2]
+num_sparse_block: [2, 1, 1]
+
+# Graph pooling.
+traceable: False
+pooling_dim: [15, 12]  # [pool_x, pool_y]
+pooling_aggr: max
+
+# Train.
+clip: 0.1
+
+# Postprocessing.
+conf_thr: 0.25
+nms_thr: 0.5
+num_scales: 2
+yolo_stem_width: 1
+
+# Classify head.
+num_classes: 5
