@@ -1,0 +1,5 @@
+# Save path.
+data_root_dir: '../dataset/'
+
+# Initialization.
+random_seed: 1
